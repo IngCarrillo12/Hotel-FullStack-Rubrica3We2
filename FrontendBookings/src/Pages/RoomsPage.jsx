@@ -8,7 +8,7 @@ export const RoomsPage = () => {
   const {rooms} = useContext(HotelContext)
   const { user } = useContext(AuthContext)
   return (
-    <div className='w-full h-[auto] mt-4 flex flex-col justify-center items-center bg-transparent'>
+    <div className='w-full h-screen mt-4 flex flex-col justify-center items-center bg-transparent'>
         <h1 className=' font-bold text-3xl border-b-2 text-white '>Rooms</h1>
       <div className='flex gap-4 my-8 justify-center items-center w-full flex-wrap'>
        {

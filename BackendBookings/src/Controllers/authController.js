@@ -17,7 +17,7 @@ export const signUp = async(req,res)=>{
         jwt.sign(user, SECRETKEYPASSWORD,   { expiresIn: '1h' }, (err, token) => {
             if (err) return console.log(err);
             res.cookie('token', token);
-            res.status(200).send({ id, name, lastname, telefono, email, birthday, createdAt });
+            res.status(200).send({ idusers, name, lastname, telefono, email, birthday, createdAt });
         });
     } catch (error) {
         console.log(error)
