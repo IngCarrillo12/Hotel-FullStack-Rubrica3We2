@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const urlApi = 'http://localhost:3001';
+  const urlApi = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   useEffect(() => {

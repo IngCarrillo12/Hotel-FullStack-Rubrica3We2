@@ -5,7 +5,7 @@ import axios from 'axios'
 export const HotelProvider = ({children}) => {
     const [bookings, setBookings] = useState(null)
     const [rooms, setRooms] = useState(null)
-    const urlApi = 'http://localhost:3001'
+    const urlApi = import.meta.env.VITE_API_URL;
     const loadRoom = async()=>{
         try {
             const { data } = await axios.get(`${urlApi}/rooms`, { withCredentials: true });
