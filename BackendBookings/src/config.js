@@ -1,4 +1,5 @@
 export const PORT = process.env.PORT || 3001
+export const URL = process.env.URL || 'http://localhost:5173'
 export const SECRETKEYPASSWORD =  process.env.SECRETKEYPASSWORD || 'hello'
 export const DB_HOST = process.env.DB_HOST || 'localhost'
 export const DB_USER = process.env.DB_USER || 'root'

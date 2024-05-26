@@ -5,13 +5,13 @@ import routerAuth from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser'
 import { PORT } from './config.js';
 import cors from 'cors'
-
+import {URL} from './config.js'
 const app =  express();
 app.use(urlencoded({extended:true}))
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: URL,
     credentials: true
 }))
 app.get('/', (req, res)=>{
