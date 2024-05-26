@@ -12,8 +12,9 @@ export const signUp = async(req,res)=>{
         const [response] = await pool.query('INSERT INTO users (name, lastname, telefono, email, password, birthday, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)', [name, lastname, telefono, email, passwordHash, birthday, createdAt])
 
         if(response.affectedRows === 0) return res.status(400).send({message: 'Registro invalido!!'})
-        const id = response.insertId
-        jwt.sign({user}, SECRETKEYPASSWORD,   { expiresIn: '1h' }, (err, token) => {
+        const idusers = response.insertId
+        const user = {idusers, name, lastname, telefono, email, birthday, createdAt}
+        jwt.sign(user, SECRETKEYPASSWORD,   { expiresIn: '1h' }, (err, token) => {
             if (err) return console.log(err);
             res.cookie('token', token);
             res.status(200).send({ id, name, lastname, telefono, email, birthday, createdAt });
