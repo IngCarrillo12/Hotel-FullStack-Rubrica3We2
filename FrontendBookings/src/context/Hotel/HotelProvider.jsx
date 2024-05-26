@@ -62,7 +62,6 @@ export const HotelProvider = ({children}) => {
           text: error,
           icon:'error'
         })
-        console.log(error)
       }
     }
     const bookingRooms = async(info)=>{
@@ -84,7 +83,7 @@ export const HotelProvider = ({children}) => {
     }
     const deleteBooking = async(id)=>{    
       try {
-        const {data} = await axios.delete(`${urlApi}/bookings/${id}`)
+        const {data} = await axios.delete(`${urlApi}/bookings/${id}`,{withCredentials:true})
         Swal.fire({
           title:'Success',
           text: data.message,

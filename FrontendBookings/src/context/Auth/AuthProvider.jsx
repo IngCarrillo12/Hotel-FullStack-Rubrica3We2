@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const urlApi = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
-
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
