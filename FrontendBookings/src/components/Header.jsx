@@ -9,13 +9,13 @@ export const Header = () => {
    const navigate = useNavigate()
   return (
     <>
-    <header className='flex flex-col justify-between items-center w-full h-28 px-12 md:flex-row'>
-        <div className='flex justify-center items-center'>
+    <header className='flex flex-col justify-between items-center w-full h-28 px-8 md:px-12 md:flex-row'>
+        <div className='flex justify-center items-center w-1/3'>
             <img src={logo} width={'64px'} alt="logo" />
             <label onClick={()=>navigate('/')} htmlFor="" className='font-bold text-2xl text-white cursor-pointer'>Hotel Transilvania</label>
         </div>
-        <nav className='flex justify-center items-center'>
-            <ul className='flex justify-end items-center gap-8'>
+        <nav className='flex w-full justify-center md:justify-end items-center'>
+            <ul className='flex justify-end items-center gap-6 md:gap-8'>
                 <li className='text-white text-lg font-medium'>
                     <Link to={'/'}>Home</Link>
                 </li>

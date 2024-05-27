@@ -13,10 +13,10 @@ export const CardRoom = ({idhabitaciones, numero, tipo, valor, user, setOpenBook
   
   return (
     <>
-    <div className='flex gap-1 md:gap-8 w-[95%] h-auto md:h-40 md:w-[45%] border-2 rounded-lg border-white backdrop-blur-md'>
+    <div className='flex gap-1 md:gap-8 w-[95%] h-auto md:h-40 lg:w-[45%] md:w-[80%] border-2 rounded-lg border-white backdrop-blur-md'>
         <img className=' w-28 h-28 md:w-52 md:h-auto  rounded-lg' src="https://img.freepik.com/vector-gratis/plantilla-fondo-interior-dormitorio-dibujos-animados-acogedora-habitacion-moderna-luz-manana_33099-171.jpg" alt="img habitacion" />
         <div className='flex justify-around w-full h-28 md:h-auto items-center md:pr-12'>
-            <div className='flex h-20 flex-col gap-1'>
+            <div className='flex h-20 justify-center flex-col gap-1'>
                 <h1 className='font-bold text-lg  md:text-2xl'>{tipo}</h1>
                 <p className='text-sm md:text-base'>Numero: ◉ {numero}</p>
                 <p className='font-semibold text-base md:text-lg'>Valor: ${valor}</p>
@@ -47,7 +47,6 @@ export const CardRoom = ({idhabitaciones, numero, tipo, valor, user, setOpenBook
         </div>
       )
     }
-   
     </>
   )
 }
