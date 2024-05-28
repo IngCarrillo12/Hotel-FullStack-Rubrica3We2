@@ -39,8 +39,8 @@ export const CardRoom = ({idhabitaciones, numero, tipo, valor, user, setOpenBook
             <input type="datetime-local" min={minDate} className="pl-2 rounded-lg h-8 border border-white bg-transparent text-white placeholder:text-white" {...register('fecha_entrada',{required:true})} />
             </div>
             <div className='flex flex-col'>
-            <label htmlFor="fecha_salida" className='font-semibold text-lg text-white'>Fecha salida:</label>
-            <input  type='datetime-local' className="pl-2 rounded-lg h-8 border border-white bg-transparent text-white placeholder:text-white" {...register('fecha_salida',{required:true})} />
+            <label htmlFor="fecha_salida"  className='font-semibold text-lg text-white'>Fecha salida:</label>
+            <input  type='datetime-local' min={minDate} className="pl-2 rounded-lg h-8 border border-white bg-transparent text-white placeholder:text-white" {...register('fecha_salida',{required:true})} />
             </div>
             <button className="border-2 border-white rounded-md font-semibold text-white text-xl" >Confirmar reservacion</button>
             </form>
