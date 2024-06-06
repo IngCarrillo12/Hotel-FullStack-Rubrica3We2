@@ -2,8 +2,9 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../context/Auth/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 export const UserMenu = ({ name, lastname, email, setUserMenu }) => {
-  const { logout } = useContext(AuthContext)
+  const { logout, user } = useContext(AuthContext)
   const navigate = useNavigate()
+  const isAdmin = user ? user.admin : false
   return (
     <div className='userMenu backdrop-blur-[2px] '>
       <div className='userMenu_group'>
@@ -11,7 +12,11 @@ export const UserMenu = ({ name, lastname, email, setUserMenu }) => {
         <h3 className='pl-4 text-2xl font-bold'> {name} {lastname}</h3>
       </div>
       <h4 ><b>Email:</b>{email}</h4>
-      <Link className='font-semibold text-white text-lg border-b-2' to={"/mybookings"} onClick={()=>setUserMenu(false)}>Mis Reservas</Link>
+      {
+        !isAdmin&&(
+          <Link className='font-semibold text-white text-lg border-b-2' to={"/mybookings"} onClick={()=>setUserMenu(false)}>Mis Reservas</Link>
+        )
+      }
       <Link className='font-semibold text-white text-lg border-b-2' to={"/editprofile"} onClick={()=>setUserMenu(false)}>Editar Perfil</Link>
       <button className='border-2 border-white text-white text-lg font-semibold' onClick={() => { logout(); setUserMenu(false); navigate('/')}}>Logout</button>
     </div>

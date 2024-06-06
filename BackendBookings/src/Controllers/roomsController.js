@@ -5,7 +5,7 @@ export const getAllRooms = async(req,res)=>{
     try {
         const [response] = await pool.query("SELECT * FROM habitaciones")
         if(response.length === 0){
-           return res.status(500).send({message: 'No se encontraron habitaciones'})
+           return res.status(200).send([])
         }
         res.status(200).send(response)
     } catch (error) {

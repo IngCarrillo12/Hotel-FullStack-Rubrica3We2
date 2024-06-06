@@ -20,10 +20,10 @@ export const CrudBookings = () => {
       {
         !openEdit && !openAddRoom ? (
           <>
-            <table className='w-3/4 text-center border backdrop-blur-[4px]'>
+            <table className='w-3/4 text-center bg-black/40 border backdrop-blur-[4px]'>
               <button
                 onClick={() => setOpenAddRoom(true)}
-                className='font-semibold text-lg border-2 border-white rounded-md w-44 px-2 py-1 absolute top-[-3rem] right-2'
+                className='font-semibold text-lg border-2 bg-black/40 border-white rounded-md w-44 px-2 py-1 absolute top-[-3rem] right-2'
               >
                 Agregar Room
               </button>
@@ -37,7 +37,7 @@ export const CrudBookings = () => {
                 </tr>
               </thead>
               <tbody>
-                {rooms && rooms.map((room) => (
+                {rooms.length && rooms.map((room) => (
                   <tr key={room.idhabitaciones} className='border'>
                     <td className='border'>{room.idhabitaciones}</td>
                     <td className='border'>{room.numero}</td>
@@ -48,13 +48,13 @@ export const CrudBookings = () => {
                         className='w-8 h-8'
                         onClick={() => handleEdit(room.idhabitaciones)}
                         height="30"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABTUlEQVR4nO2ZvUrEQBRGT2GrhaWPIdhrLdqJnT/jvzbb+RzrI2xt4wPYWNgslvsG2lhpoyJklYERhmUSExu/G+6BEEhS3MOXuQlzwXG6sgLcAC/AG3APbGOMXeAT+CocVxhhDhjXSPwcWxhhEXhoELlDmCPgCVhrIfOKKKfANBW5nl2vk3lGXGJQuF+SucaYREkmdrNlDErkMuPUmk1KbACrWWuW4aSDxCA9F7sZ1iWmwDFCHAJVKu6yg8QFQvRC4sAlRPAkrCdxjhAuoUIvkgguIULwJEQInoQIwZMwnsQZQgSXECH0IYl9lxBhL0ui7eZZlX7hZVgA3q1LRDazBRs3mNss7Kbn/o1hNkSpK1JeIjKZmQjNFmtCYinbIS/JmJCI7DSMgavsHD+S0ox+Gc5/pNYsz2Oh+ElqAHHsNY8RbpPMKL1mcc04Dn/jG2ZuF5tGhdokAAAAAElFTkSuQmCC"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABV0lEQVR4nO3ZrU4DQRSG4U/UgkD2MkjwoAk4gqPQ8lPA1HEdcAnVGC4Ag8AQZO+AGhQYICTtSyYZMZTdzS6m52zmMW22I+bN6Y7YlbKsEWADuAPegA/gEdiXJ0AP+KbYjTwAOsAT1fbkAbAGPFeEPMgq4ASYAls1Yt5lETAE5nGT28n1sphXGY8YFfxeFHMrTxElMeE0W5e3iIWYcJr15DEC2AE24/eOrADOGkSM4rqpLPlnxBw4lRXAMTCLm7tqEHEpK9oSMcgRFuRJtGASF7IiR1jRlkn0c4QF5EkYQZ6EEeRJ+J/EuawgRxhBSyZxlCMsAA6TSdR9eBbWD2QFsAp8uo4IgN3khh2q3o1dum5pgOvkJUrhJs1HBMBk4Y3Qr816iegmT8j/xLiICIADys2Sz74sA8ZU+wpHs6wDXgo2P4kHQHjttSIPgPsYM45/s+6y95TJsR9jsZZU4R8K0AAAAABJRU5ErkJggg=="
                         alt="edit icon"
                       />
                       <img
                         className='w-8 h-8'
                         onClick={() => deleteRoom(room.idhabitaciones)}
-                        src="https://img.icons8.com/ios-glyphs/30/filled-trash.png"
+                        src="https://img.icons8.com/ios-glyphs/30/FFFFFF/filled-trash.png"
                         alt="filled-trash"
                       />
                     </td>

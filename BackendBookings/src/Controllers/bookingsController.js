@@ -3,7 +3,6 @@ import { errors } from "../errorHandling.js"
 
 export const createBookings = async(req,res)=>{
     try {
-        console.log(req.body)
         const {idhabitaciones, id_cliente, nombre_cliente, telefono_cliente, fecha_reservacion, fecha_entrada, fecha_salida} = req.body
         const fechaMySQL = fecha_reservacion.slice(0, 19).replace('T', ' ');
         const [response] = await pool.query('INSERT INTO reservas (idhabitaciones, idcliente, nombre_cliente, telefono_cliente, fecha_reservacion, fecha_entrada, fecha_salida) VALUES (?,?,?,?,?,?,?)', [idhabitaciones, id_cliente, nombre_cliente, telefono_cliente, fechaMySQL, fecha_entrada, fecha_salida])
@@ -50,7 +49,7 @@ export const getBookingsByUserId = async(req,res)=>{
         const {id} = req.params
         const [response] = await pool.query('SELECT * FROM reservas INNER JOIN habitaciones ON habitaciones.idhabitaciones = reservas.idhabitaciones INNER JOIN users ON reservas.idcliente = users.idusers WHERE  idcliente = ?',[id])
         if(response.length===0){
-            return res.status(404).send({message: 'No se encontraron reservas'})
+            return res.status(200).send([])
         }
         res.status(200).send(response)
     } catch (error) {
@@ -61,8 +60,9 @@ export const getBookingsByUserId = async(req,res)=>{
 export const updateBooking = async(req, res)=>{
     try {
         const {id} = req.params
-        const {nombre_cliente, telefono_cliente, fecha_reservacion, fecha_entrada, fecha_salida} = req.body
-        const [response] = await pool.query('UPDATE reservas SET nombre_cliente=?, telefono_cliente=?, fecha_reservacion=?, fecha_entrada=?, fecha_salida=? WHERE idreservas=?', [nombre_cliente, telefono_cliente, fecha_reservacion, fecha_entrada, fecha_salida, id])
+ 
+        const {telefono_cliente, fecha_entrada, fecha_salida} = req.body
+        const [response] = await pool.query('UPDATE reservas SET  telefono_cliente=?, fecha_entrada=?, fecha_salida=? WHERE idreservas=?', [telefono_cliente, fecha_entrada, fecha_salida, id])
         if(response.affectedRows ===0){
             return res.status(404).send({message: `No se ha encontrado reserva con el id=${id}`})
         }

@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { HotelContext } from '../context/Hotel/HotelContext'
 import { useForm } from 'react-hook-form'
+import {Link} from 'react-router-dom'
 export const CardRoom = ({idhabitaciones, numero, tipo, valor, user, setOpenBooking, openBooking}) => {
   const {bookingRooms} = useContext(HotelContext)
   const {register, handleSubmit} = useForm()
   const [minDate, setMinDate] = useState('');
+  const isAdmin = user ? user.admin : false
   useEffect(() => {
     const now = new Date();
     const formattedDate = now.toISOString().slice(0, 16);
@@ -21,7 +23,16 @@ export const CardRoom = ({idhabitaciones, numero, tipo, valor, user, setOpenBook
                 <p className='text-sm md:text-base'>Numero: ◉ {numero}</p>
                 <p className='font-semibold text-base md:text-lg'>Valor: ${valor}</p>
             </div>
+            {
+        user?(
+           !isAdmin&&(
             <button onClick={()=>setOpenBooking(true)} className="md:border-2 border px-4 border-white rounded-md font-semibold text-white text-lg md:text-xl">Reservar</button>
+           )
+          ):(
+          <Link to={'/login'} className=' no-underline'>Loguarse</Link>
+        )
+    }
+           
         </div>
     </div>
     {
@@ -42,7 +53,8 @@ export const CardRoom = ({idhabitaciones, numero, tipo, valor, user, setOpenBook
             <label htmlFor="fecha_salida"  className='font-semibold text-lg text-white'>Fecha salida:</label>
             <input  type='datetime-local' min={minDate} className="pl-2 rounded-lg h-8 border border-white bg-transparent text-white placeholder:text-white" {...register('fecha_salida',{required:true})} />
             </div>
-            <button className="border-2 border-white rounded-md font-semibold text-white text-xl" >Confirmar reservacion</button>
+              <button className="border-2 border-white rounded-md font-semibold text-white text-xl" >Confirmar reservacion</button>
+            
             </form>
         </div>
       )

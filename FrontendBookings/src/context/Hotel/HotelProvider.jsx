@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { HotelContext } from './HotelContext'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import { AuthContext } from '../Auth/AuthContext'
+import {useNavigate} from 'react-router-dom'
+
+
 export const HotelProvider = ({children}) => {
-    const [bookings, setBookings] = useState(null)
-    const [rooms, setRooms] = useState(null)
+    const [bookings, setBookings] = useState([])
+    const [rooms, setRooms] = useState([])
+    const {user} = useContext(AuthContext)
     const urlApi = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate()
     const loadRoom = async()=>{
         try {
             const { data } = await axios.get(`${urlApi}/rooms`, { withCredentials: true });
@@ -13,6 +19,14 @@ export const HotelProvider = ({children}) => {
         } catch (error) {
             console.error('Error loading rooms:', error);
         }
+    }
+    const loadBookings = async(id)=>{
+      try {
+        const {data} = await axios.get(`${urlApi}/bookings/getBookingByUser/${id}`, {withCredentials:true})
+        setBookings(data)
+      } catch (error) {
+        console.log(error)
+      }
     }
     const deleteRoom = async(id)=>{
       try {
@@ -39,10 +53,11 @@ export const HotelProvider = ({children}) => {
         text: data.message,
         icon:'success'
        })
-      } catch (error) {
+       loadRoom()
+      } catch ({response}) {
         Swal.fire({
           title: 'Error!!',
-          text: error,
+          text: response.data.message,
           icon:'error'
          })
       }
@@ -50,16 +65,17 @@ export const HotelProvider = ({children}) => {
     const addRoom = async(values)=>{
       try {
         const {data} = await axios.post(`${urlApi}/rooms`, values, {withCredentials:true})
+        console.log(data)
         Swal.fire({
           title:'Success',
           text: data.message,
           icon:'success'
         })
         loadRoom()
-      } catch (error) {
+      } catch ({response}) {
         Swal.fire({
           title:'Error!!',
-          text: error,
+          text: response.data.message,
           icon:'error'
         })
       }
@@ -73,10 +89,10 @@ export const HotelProvider = ({children}) => {
             icon:'success'
           })
 
-        } catch (error) {
+        } catch ({response}) {
           Swal.fire({
             title:'Error!!',
-            text: error,
+            text: response.data.message,
             icon:'error'
           })
         }
@@ -89,6 +105,8 @@ export const HotelProvider = ({children}) => {
           text: data.message,
           icon:'success'
         })
+        loadBookings(user.idusers)
+        navigate('/')
       } catch (error) {
         Swal.fire({
           title:'Error!!',
@@ -97,24 +115,31 @@ export const HotelProvider = ({children}) => {
         })
       }
     }
-    const loadBookings = async(id)=>{
+    const editBooking = async(values)=>{
       try {
-        const {data} = await axios.get(`${urlApi}/bookings/getBookingByUser/${id}`)
-        setBookings(data)
-      } catch (error) {
-        Swal.fire({
-          title:'Error!!',
-          text: error,
-          icon:'error'
-        })
+          const {data} = await axios.put(`${urlApi}/bookings/${values.idreservas}`, values, {withCredentials:true})
+         Swal.fire({
+          title: 'Success',
+          text:'Actualizado',
+          icon:'success'        
+         })
+          loadBookings(user.idusers)
+      } catch ({response}) {
+          console.log(response.data.message)
+          Swal.fire({
+            title: 'Error!',
+            text: response.data.message,
+            icon:'error'        
+           })
+         
       }
-    }
+  }
     useEffect(() => {
       loadRoom()
     }, [])
     
   return (
-    <HotelContext.Provider value={{rooms, bookings ,loadRoom, loadBookings, updateRoom, deleteRoom, addRoom, bookingRooms, deleteBooking}}>
+    <HotelContext.Provider value={{rooms, bookings ,loadRoom, loadBookings, updateRoom, deleteRoom, addRoom, bookingRooms, deleteBooking, editBooking}}>
         {children}
     </HotelContext.Provider>
   )
