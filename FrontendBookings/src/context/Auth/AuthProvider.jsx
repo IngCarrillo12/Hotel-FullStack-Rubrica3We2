@@ -60,7 +60,11 @@ export const AuthProvider = ({ children }) => {
   const editProfile = async(values)=>{
     try {
       const {name, lastname, password, birthday, email} = values
-      const {data}= await axios.put(`${urlApi}/users/profile`,{name, lastname, password, birthday, email:user.email, idusers: user.idusers}, {withCredentials:true}) 
+      const { data } = await axios.put(
+        `${urlApi}/users/profile`,
+        { name, lastname, password, birthday, email: user.email, idusers: user.idusers },
+        { withCredentials: true }
+      );
       setUser({...user,name: name, lastname: lastname, birthday:birthday})
       Swal.fire({
         title: 'success',
